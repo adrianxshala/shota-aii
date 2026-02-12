@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Menu, X, ChevronDown } from "lucide-react"
 
 export function Header() {
@@ -11,10 +12,18 @@ export function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <span className="text-sm font-bold text-primary-foreground">S</span>
-          </div>
-          <span className="font-display text-xl font-bold text-foreground">Shota AI</span>
+          <Image
+            src="/logo.png"
+            alt=""
+            width={160}
+            height={40}
+            className="h-8 w-auto object-contain"
+            priority
+          />
+          <span className="font-display text-xl">
+            <span className="font-bold text-white">Shota</span>
+            <span className="font-light text-primary"> Ai</span>
+          </span>
         </a>
 
         {/* Desktop Nav */}

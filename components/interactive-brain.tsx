@@ -31,15 +31,18 @@ export function InteractiveBrain() {
   const particlesRef = useRef<Particle[]>([])
   const animRef = useRef<number>(0)
   const timeRef = useRef(0)
+  const brainCenterRef = useRef({ x: 0, y: 0 })
 
   const initNodes = useCallback((width: number, height: number) => {
     const nodes: Node[] = []
+    const isMobile = width < 768
     const centerX = width * 0.55
-    const centerY = height * 0.45
+    const centerY = isMobile ? height * 0.32 : height * 0.45
+    const size = Math.min(width, height)
+    const brainRadiusX = size * (isMobile ? 0.42 : 0.28)
+    const brainRadiusY = size * (isMobile ? 0.36 : 0.24)
 
-    // Brain shape using elliptical distribution
-    const brainRadiusX = Math.min(width, height) * 0.28
-    const brainRadiusY = Math.min(width, height) * 0.24
+    brainCenterRef.current = { x: centerX, y: centerY }
 
     // Core nodes (dense center of brain)
     for (let i = 0; i < 15; i++) {
@@ -113,7 +116,7 @@ export function InteractiveBrain() {
     }
 
     // Build connections
-    const maxDist = Math.min(width, height) * 0.18
+    const maxDist = size * (isMobile ? 0.22 : 0.18)
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x
@@ -311,10 +314,9 @@ export function InteractiveBrain() {
       }
 
       // Draw circuit trace lines from edge nodes outward
+      const { x: centerX, y: centerY } = brainCenterRef.current
       for (const node of nodes) {
         if (node.layer === "edge") {
-          const centerX = w * 0.55
-          const centerY = h * 0.45
           const dx = node.x - centerX
           const dy = node.y - centerY
           const angle = Math.atan2(dy, dx)
