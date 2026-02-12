@@ -1,7 +1,7 @@
 "use client"
 
 import { InteractiveBrain } from "./interactive-brain"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, MousePointerClick } from "lucide-react"
 
 export function HeroSection() {
   return (
@@ -58,6 +58,14 @@ export function HeroSection() {
 
           {/* Right side - space for the interactive brain */}
           <div className="hidden lg:block" aria-hidden="true" />
+        </div>
+      </div>
+
+      {/* Interaction hint */}
+      <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2">
+        <div className="flex items-center gap-2 rounded-full border border-border/50 bg-secondary/60 px-4 py-2 text-xs text-muted-foreground backdrop-blur-sm">
+          <MousePointerClick className="h-3.5 w-3.5" />
+          <span>Click to send energy waves -- Double-click to toggle attract mode</span>
         </div>
       </div>
 
