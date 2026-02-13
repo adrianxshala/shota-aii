@@ -48,7 +48,7 @@ export function HeroSection() {
               linear-gradient(rgba(0, 180, 255, 0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(0, 180, 255, 0.1) 1px, transparent 1px)
             `,
-            backgroundSize: "60px 60px",
+            backgroundSize: "40px 40px",
           }}
         />
       </div>
@@ -58,14 +58,14 @@ export function HeroSection() {
         <InteractiveBrain />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-5rem)] min-h-[calc(100vh-5rem)] max-w-7xl flex-col justify-center px-4 py-10 sm:px-6 sm:py-12 md:min-h-screen md:py-0">
+      {/* Content - positioned lower on mobile/tablet for a more professional layout */}
+      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-5rem)] min-h-[calc(100vh-5rem)] max-w-7xl flex-col justify-center px-4 pb-20 pt-80 sm:px-6 sm:pb-16 sm:pt-36 md:min-h-screen md:py-0">
         <div className="grid w-full gap-6 sm:gap-8 lg:grid-cols-2">
           {/* Left text content */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             {/* Badge */}
             <div
-              className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs text-primary sm:mb-6 sm:gap-2 sm:px-4 sm:py-1.5 sm:text-sm"
+              className="mb-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs text-primary sm:mb-6 sm:gap-2 sm:px-4 sm:py-1.5 sm:text-sm"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(12px)",
@@ -73,12 +73,12 @@ export function HeroSection() {
                 transitionDelay: "0ms",
               }}
             >
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span>Web & AI Innovation</span>
             </div>
 
             <h1
-              className="font-display text-4xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
+              className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(24px)",
@@ -102,7 +102,7 @@ export function HeroSection() {
             </h1>
 
             <p
-              className="mt-4 max-w-md text-base text-muted-foreground sm:mt-5 sm:text-lg"
+              className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-md sm:text-lg"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(20px)",
@@ -114,7 +114,7 @@ export function HeroSection() {
             </p>
 
             <div
-              className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4"
+              className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:gap-4"
               style={{
                 opacity: mounted ? 1 : 0,
                 transform: mounted ? "translateY(0)" : "translateY(20px)",
@@ -125,22 +125,26 @@ export function HeroSection() {
               <a
                 ref={ctaRef}
                 href="#platform"
-                className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-[box-shadow,background-color] duration-200 hover:shadow-lg hover:shadow-primary/30 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-7 sm:py-3.5"
+                className="group relative inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_30px_-6px_rgba(0,180,255,0.3)] transition-[box-shadow,transform] duration-200 hover:shadow-lg hover:shadow-primary/30 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:rounded-full sm:px-7 sm:py-3.5"
+                style={{
+                  backgroundImage: "linear-gradient(120deg, hsl(199 89% 48%), hsl(187 85% 55%), hsl(199 89% 48%))",
+                  backgroundSize: "200% auto",
+                }}
               >
                 Explore Platform
                 <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               </a>
               <a
                 href="#about"
-                className="inline-flex items-center justify-center rounded-full border border-border px-5 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(0,180,255,0.15)] sm:px-7 sm:py-3.5"
+                className="inline-flex items-center justify-center rounded-2xl border border-primary/20 px-5 py-3.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(0,180,255,0.15)] active:scale-[0.98] sm:rounded-full sm:px-7 sm:py-3.5"
               >
                 Learn More
               </a>
             </div>
 
-            {/* Subtle trust line */}
+            {/* Subtle trust line - more separation on mobile */}
             <p
-              className="mt-6 text-xs text-muted-foreground/80 sm:mt-10 sm:text-sm"
+              className="mt-8 text-xs text-muted-foreground/80 sm:mt-10 sm:text-sm"
               style={{
                 opacity: mounted ? 1 : 0,
                 transition: "opacity 0.8s ease",
@@ -157,7 +161,7 @@ export function HeroSection() {
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-muted-foreground sm:bottom-8 sm:gap-2"
+          className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 text-muted-foreground sm:flex sm:bottom-8 sm:gap-2"
           style={{
             opacity: mounted ? 1 : 0,
             transition: "opacity 1s ease",

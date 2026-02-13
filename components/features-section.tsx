@@ -11,27 +11,27 @@ const projects = [
     description:
       "A cutting-edge web application leveraging artificial intelligence to deliver intelligent user experiences and automated workflows.",
     tech: ["Next.js", "AI/ML", "TypeScript"],
-    image: "/placeholder.jpg",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     link: "#",
     icon: Sparkles,
   },
   {
     id: 2,
-    name: "Enterprise Dashboard",
+    name: "Web & Dashboard",
     description:
       "A comprehensive analytics dashboard with real-time data visualization and advanced reporting capabilities for enterprise clients.",
     tech: ["React", "Node.js", "PostgreSQL"],
-    image: "/placeholder.jpg",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     link: "#",
     icon: Code,
   },
   {
     id: 3,
-    name: "E-Commerce Solution",
+    name: "Automation & Workflows",
     description:
-      "A modern e-commerce platform with AI-driven recommendations, seamless checkout, and inventory management system.",
-    tech: ["Next.js", "Stripe", "MongoDB"],
-    image: "/placeholder.jpg",
+      "Streamlined automation solutions that reduce manual tasks and scale your operations with smart workflows and integrations.",
+    tech: ["Next.js", "APIs", "MongoDB"],
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
     link: "#",
     icon: Rocket,
   },
@@ -39,27 +39,27 @@ const projects = [
 
 export function FeaturesSection() {
   return (
-    <section className="relative bg-background py-24" id="projects">
+    <section className="relative bg-background py-16 sm:py-24" id="projects">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
+          className="mb-10 text-center sm:mb-12"
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
             Our Work
           </p>
-          <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
+          <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
             Featured <span className="text-primary">Projects</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
             Explore our portfolio of innovative solutions built with cutting-edge technology
           </p>
         </motion.div>
 
-        <div className="grid w-full gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid w-full gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
             <motion.a
               key={project.id}
@@ -68,24 +68,25 @@ export function FeaturesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-primary/20 bg-primary/[0.03] shadow-[0_0_40px_-12px_rgba(0,180,255,0.1)] backdrop-blur-xl transition-all hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(0,180,255,0.15)] md:rounded-3xl"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-primary/20 bg-primary/[0.03] shadow-[0_0_40px_-12px_rgba(0,180,255,0.1)] backdrop-blur-xl transition-all active:scale-[0.98] hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(0,180,255,0.15)] md:rounded-3xl"
             >
               {/* Project Image */}
-              <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5">
+              <div className="relative h-40 w-full overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 sm:h-48">
                 <Image
                   src={project.image}
                   alt={project.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
               </div>
 
               {/* Content */}
-              <div className="relative flex flex-1 flex-col p-5 pt-6 sm:p-6 sm:pt-7 md:p-8 md:pt-8">
+              <div className="relative flex flex-1 flex-col p-4 pt-5 sm:p-5 sm:pt-6 md:p-8 md:pt-8">
                 {/* Diamond accent */}
                 <svg
-                  className="absolute right-5 top-5 h-12 w-12 text-primary/30 sm:right-6 sm:top-6 md:right-8 md:top-8"
+                  className="absolute right-4 top-4 h-10 w-10 text-primary/30 sm:right-5 sm:top-5 sm:h-12 sm:w-12 md:right-8 md:top-8"
                   viewBox="0 0 48 48"
                   fill="none"
                   stroke="currentColor"
@@ -103,26 +104,26 @@ export function FeaturesSection() {
                 </svg>
 
                 {/* Icon */}
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                  <project.icon className="h-6 w-6 text-primary" />
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 sm:mb-4 sm:h-12 sm:w-12">
+                  <project.icon className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
                 </div>
 
                 {/* Project Name */}
-                <h3 className="mb-2 font-display text-lg font-bold text-foreground">
+                <h3 className="mb-1.5 font-display text-base font-bold text-foreground sm:mb-2 sm:text-lg">
                   {project.name}
                 </h3>
 
                 {/* Description */}
-                <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+                <p className="mb-3 flex-1 text-sm leading-relaxed text-muted-foreground sm:mb-4">
                   {project.description}
                 </p>
 
                 {/* Tech Stack */}
-                <div className="mb-4 flex flex-wrap gap-2">
+                <div className="mb-3 flex flex-wrap gap-1.5 sm:mb-4 sm:gap-2">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary"
+                      className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-primary sm:px-3 sm:py-1 sm:text-xs"
                     >
                       {tech}
                     </span>
