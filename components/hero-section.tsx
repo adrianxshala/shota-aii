@@ -2,18 +2,15 @@
 
 import { InteractiveBrain } from "./interactive-brain"
 import { ArrowRight, ChevronDown, Sparkles } from "lucide-react"
-import { useState, useRef, useEffect } from "react"
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 
-const HERO_STAGGER = 120
+const heroViewport = { once: true, amount: 0.2 }
 
 export function HeroSection() {
-  const [mounted, setMounted] = useState(false)
   const ctaRef = useRef<HTMLAnchorElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const contentInView = useInView(sectionRef, heroViewport)
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const btn = ctaRef.current
@@ -63,28 +60,23 @@ export function HeroSection() {
         <div className="grid w-full gap-6 sm:gap-8 lg:grid-cols-2">
           {/* Left text content */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            {/* Badge */}
-            <div
+            {/* Badge - cute fade up */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={contentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.9, ease: [0.33, 1, 0.68, 1] }}
               className="mb-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/5 px-3 py-1.5 text-xs text-primary sm:mb-6 sm:gap-2 sm:px-4 sm:py-1.5 sm:text-sm"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-                transitionDelay: "0ms",
-              }}
             >
               <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               <span>Web & AI Innovation</span>
-            </div>
+            </motion.div>
 
-            <h1
+            {/* H1 - blur to sharp (like text revealing / being written) */}
+            <motion.h1
+              initial={{ opacity: 0, filter: "blur(12px)" }}
+              animate={contentInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+              transition={{ duration: 1.25, delay: 0.25, ease: [0.33, 1, 0.68, 1] }}
               className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(24px)",
-                transition: "opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
-                transitionDelay: mounted ? `${HERO_STAGGER}ms` : "0ms",
-              }}
             >
               <span className="text-balance block">
                 Future of{" "}
@@ -99,28 +91,22 @@ export function HeroSection() {
                   Intelligence
                 </span>
               </span>
-            </h1>
+            </motion.h1>
 
-            <p
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={contentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.95, delay: 0.55, ease: [0.33, 1, 0.68, 1] }}
               className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-md sm:text-lg"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(20px)",
-                transition: "opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
-                transitionDelay: mounted ? `${HERO_STAGGER * 2}ms` : "0ms",
-              }}
             >
               Empowering Web & AI Innovation
-            </p>
+            </motion.p>
 
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={contentInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.9, delay: 0.85, ease: [0.33, 1, 0.68, 1] }}
               className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:gap-4"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(20px)",
-                transition: "opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
-                transitionDelay: mounted ? `${HERO_STAGGER * 3}ms` : "0ms",
-              }}
             >
               <a
                 ref={ctaRef}
@@ -140,19 +126,17 @@ export function HeroSection() {
               >
                 Learn More
               </a>
-            </div>
+            </motion.div>
 
-            {/* Subtle trust line - more separation on mobile */}
-            <p
+            {/* Trust line - soft fade */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={contentInView ? { opacity: 1 } : {}}
+              transition={{ duration: 1, delay: 1.15, ease: [0.33, 1, 0.68, 1] }}
               className="mt-8 text-xs text-muted-foreground/80 sm:mt-10 sm:text-sm"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transition: "opacity 0.8s ease",
-                transitionDelay: mounted ? `${HERO_STAGGER * 4}ms` : "0ms",
-              }}
             >
               Trusted by teams building the next generation of apps.
-            </p>
+            </motion.p>
           </div>
 
           {/* Right side - space for the interactive brain */}
@@ -160,17 +144,15 @@ export function HeroSection() {
         </div>
 
         {/* Scroll indicator */}
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={contentInView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 1.4, ease: [0.33, 1, 0.68, 1] }}
           className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 text-muted-foreground sm:flex sm:bottom-8 sm:gap-2"
-          style={{
-            opacity: mounted ? 1 : 0,
-            transition: "opacity 1s ease",
-            transitionDelay: "800ms",
-          }}
         >
           <span className="text-[10px] font-medium uppercase tracking-widest sm:text-xs">Scroll</span>
           <ChevronDown className="h-5 w-5 animate-scroll-bounce sm:h-6 sm:w-6" aria-hidden />
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom fade */}

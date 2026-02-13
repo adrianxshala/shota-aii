@@ -25,7 +25,18 @@ export function ContactSection() {
               Get in Touch
             </p>
             <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl md:text-3xl">
-              Ready to <span className="text-primary">Transform</span> Your Business?
+              Ready to{" "}
+            <span
+              className="inline-block bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, hsl(199 89% 48%), hsl(187 85% 55%), hsl(199 89% 48%))",
+                backgroundSize: "200% auto",
+              }}
+            >
+              Transform
+            </span>{" "}
+            Your Business?
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-xs text-muted-foreground sm:text-sm">
               Reach out and we&apos;ll get back to you soon.
@@ -112,7 +123,12 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   size="sm"
-                  className="h-9 w-full gap-1.5 rounded-xl bg-primary px-4 text-sm font-semibold shadow-[0_0_20px_-6px_rgba(0,180,255,0.2)] transition-all hover:bg-primary/90 sm:w-auto sm:rounded-full sm:px-6"
+                  className="h-9 w-full gap-1.5 rounded-xl border-0 px-4 text-sm font-semibold text-primary-foreground shadow-[0_0_20px_-6px_rgba(0,180,255,0.25)] transition-all hover:opacity-95 sm:w-auto sm:rounded-full sm:px-6"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(120deg, hsl(199 89% 48%), hsl(187 85% 55%), hsl(199 89% 48%))",
+                    backgroundSize: "200% auto",
+                  }}
                 >
                   Send Message
                   <ArrowRight className="h-3.5 w-3.5" />
