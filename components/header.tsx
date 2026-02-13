@@ -6,10 +6,11 @@ import { Menu, X, ChevronDown, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
-  { label: "Home", href: "#", active: true },
+  { label: "Home", href: "/", active: true },
   { label: "Solutions", href: "#", dropdown: true },
   { label: "AI Platform", href: "#", dropdown: true },
-  { label: "About", href: "#about" },
+  { label: "About", href: "/about" },
+  { label: "Get in Touch", href: "/contact" },
 ]
 
 export function Header() {
@@ -35,11 +36,11 @@ export function Header() {
         transition={{ duration: 0.5 }}
         className="fixed top-0 left-0 right-0 z-50 safe-top"
       >
-        <div className="mx-auto max-w-7xl px-3 pt-2 sm:px-6 sm:pt-3">
-          <div className="rounded-2xl border border-primary/20 bg-background/80 shadow-[0_0_40px_-12px_rgba(0,180,255,0.1)] backdrop-blur-xl">
-            <div className="flex items-center justify-between px-4 py-2.5 sm:px-6 sm:py-3">
+        <div className="mx-auto max-w-7xl px-3 pt-3 sm:px-6 sm:pt-3">
+          <div className="rounded-2xl border border-primary/10 bg-background/40 shadow-[0_0_24px_-8px_rgba(0,180,255,0.08)] backdrop-blur-md">
+            <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-3">
               {/* Logo */}
-              <a href="#" className="flex items-center gap-2">
+              <a href="/" className="flex items-center gap-2">
                 <Image
                   src="/logo.png"
                   alt=""
@@ -83,10 +84,10 @@ export function Header() {
 
               {/* CTA */}
               <a
-                href="#contact"
+                href="/contact"
                 className="hidden rounded-full border border-primary/20 bg-primary/10 px-5 py-2 text-sm font-medium text-primary shadow-[0_0_20px_-6px_rgba(0,180,255,0.15)] transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_20px_-4px_rgba(0,180,255,0.3)] md:inline-flex"
               >
-                Contact
+                Get in Touch
               </a>
 
               {/* Mobile Toggle */}
@@ -106,7 +107,7 @@ export function Header() {
         </div>
       </motion.header>
 
-      {/* Full-screen mobile menu overlay */}
+      {/* Full-screen mobile menu overlay - professional blur like navbar */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -116,33 +117,31 @@ export function Header() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 md:hidden"
           >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
+            {/* Backdrop: same blur style as navbar */}
+            <div className="absolute inset-0 bg-background/60 backdrop-blur-md" />
 
             {/* Menu content */}
             <nav
-              className="relative flex h-full flex-col justify-center px-8 safe-top safe-bottom"
+              className="relative flex h-full flex-col justify-center px-6 safe-top safe-bottom sm:px-8"
               aria-label="Mobile navigation"
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className={`flex items-center justify-between rounded-2xl px-5 py-4 text-2xl font-semibold transition-colors active:bg-primary/5 ${
-                      link.active
-                        ? "text-primary"
-                        : "text-foreground"
+                    exit={{ opacity: 0, x: -16 }}
+                    transition={{ duration: 0.3, delay: index * 0.04 }}
+                    className={`font-display flex items-center justify-between rounded-xl border border-transparent px-5 py-3.5 text-lg font-medium tracking-tight transition-colors hover:border-primary/20 hover:bg-primary/5 active:bg-primary/10 ${
+                      link.active ? "text-primary" : "text-foreground"
                     }`}
                   >
                     {link.label}
                     {link.dropdown && (
-                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     )}
                   </motion.a>
                 ))}
@@ -150,16 +149,16 @@ export function Header() {
 
               {/* Mobile CTA */}
               <motion.a
-                href="#contact"
+                href="/contact"
                 onClick={() => setMobileOpen(false)}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.3, delay: navLinks.length * 0.05 }}
-                className="mt-8 flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-4 text-lg font-semibold text-primary-foreground shadow-[0_0_30px_-6px_rgba(0,180,255,0.3)] transition-all active:scale-[0.98]"
+                exit={{ opacity: 0, y: 16 }}
+                transition={{ duration: 0.3, delay: navLinks.length * 0.04 }}
+                className="font-display mt-6 flex items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-6 py-3.5 text-base font-semibold text-primary transition-all hover:bg-primary hover:text-primary-foreground active:scale-[0.98] sm:rounded-full"
               >
                 Get in Touch
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-4 w-4" />
               </motion.a>
 
               {/* Bottom info */}
@@ -167,8 +166,8 @@ export function Header() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                className="mt-auto pb-8 text-center text-xs text-muted-foreground"
+                transition={{ duration: 0.3, delay: 0.25 }}
+                className="font-display mt-auto pb-8 text-center text-xs font-medium tracking-wide text-muted-foreground"
               >
                 Shota AI &middot; Future of Intelligence
               </motion.p>

@@ -1,98 +1,126 @@
 "use client"
 
-import { Mail, MapPin, Phone } from "lucide-react"
-import { motion } from "framer-motion"
+import { AnimateInView } from "./animate-in-view"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
-const contactCards = [
-  {
-    icon: Mail,
-    title: "Email Us",
-    detail: "hello@shotaai.com",
-  },
-  {
-    icon: Phone,
-    title: "Call Us",
-    detail: "+1 (555) 000-0000",
-  },
-  {
-    icon: MapPin,
-    title: "Visit Us",
-    detail: "San Francisco, CA",
-  },
-]
+const cuteIn =
+  "opacity-0 translate-y-4 transition-[opacity,transform] duration-500 ease-out group-[.in-view]:opacity-100 group-[.in-view]:translate-y-0"
 
 export function ContactSection() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    // Add your form submission logic (e.g. send to API, email service)
+  }
+
   return (
-    <section className="relative bg-background py-16 sm:py-24" id="contact">
+    <section className="relative bg-background py-12 sm:py-20" id="contact">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 text-center sm:mb-12"
-        >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Get in Touch
-          </p>
-          <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
-            Ready to <span className="text-primary">Transform</span> Your
-            Business?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
-            Reach out to us and discover how our AI-powered solutions can
-            accelerate your digital transformation.
-          </p>
-        </motion.div>
+        <AnimateInView>
+          <div className={`mb-6 text-center sm:mb-8 ${cuteIn}`} style={{ transitionDelay: "0ms" }}>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-primary sm:text-sm">
+              Get in Touch
+            </p>
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl md:text-3xl">
+              Ready to <span className="text-primary">Transform</span> Your Business?
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-xs text-muted-foreground sm:text-sm">
+              Reach out and we&apos;ll get back to you soon.
+            </p>
+          </div>
 
-        <div className="grid w-full gap-4 sm:gap-8 md:grid-cols-3">
-          {contactCards.map((card, index) => (
-            <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-primary/20 bg-primary/[0.03] shadow-[0_0_40px_-12px_rgba(0,180,255,0.1)] backdrop-blur-xl transition-all active:scale-[0.98] hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(0,180,255,0.15)] md:rounded-3xl"
-            >
-              <div className="relative flex flex-1 items-center gap-4 p-5 sm:flex-col sm:items-center sm:p-6 sm:pt-7 sm:text-center md:p-8 md:pt-8">
-                {/* Diamond accent - hidden on mobile for cleaner look */}
-                <svg
-                  className="absolute right-4 top-4 hidden h-10 w-10 text-primary/30 sm:block sm:right-6 sm:top-6 sm:h-12 sm:w-12 md:right-8 md:top-8"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                >
-                  <path
-                    d="M 8 24 L 24 8 L 40 24 L 24 40 Z"
-                    strokeDasharray="1 1"
-                    strokeDashoffset="0"
-                    opacity="0.9"
+          <div
+            className={`group relative overflow-hidden rounded-2xl border border-primary/10 bg-background/40 shadow-[0_0_24px_-8px_rgba(0,180,255,0.08)] backdrop-blur-md transition-all ${cuteIn}`}
+            style={{ transitionDelay: "80ms" }}
+          >
+            <div className="relative p-4 sm:p-6 md:p-7">
+              <svg
+                className="absolute right-4 top-4 h-8 w-8 text-primary/25 sm:right-6 sm:top-6 sm:h-10 sm:w-10"
+                viewBox="0 0 48 48"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path
+                  d="M 8 24 L 24 8 L 40 24 L 24 40 Z"
+                  strokeDasharray="1 1"
+                  strokeDashoffset="0"
+                  opacity="0.9"
+                />
+              </svg>
+
+              <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-4 sm:space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2 sm:gap-4">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="name" className="text-xs text-foreground sm:text-sm">
+                      Name
+                    </Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Your name"
+                      required
+                      className="h-9 border-primary/15 bg-background/60 text-sm placeholder:text-muted-foreground/80 focus-visible:ring-primary"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="email" className="text-xs text-foreground sm:text-sm">
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      required
+                      className="h-9 border-primary/15 bg-background/60 text-sm placeholder:text-muted-foreground/80 focus-visible:ring-primary"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="phone" className="text-xs text-foreground sm:text-sm">
+                    Phone <span className="text-muted-foreground">(optional)</span>
+                  </Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                    className="h-9 border-primary/15 bg-background/60 text-sm placeholder:text-muted-foreground/80 focus-visible:ring-primary"
                   />
-                </svg>
-
-                {/* Icon */}
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 sm:mb-4 sm:h-12 sm:w-12">
-                  <card.icon className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
                 </div>
-
-                {/* Text */}
-                <div className="sm:text-center">
-                  <h3 className="font-display text-base font-bold text-foreground sm:mb-2 sm:text-lg">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {card.detail}
-                  </p>
+                <div className="space-y-1.5">
+                  <Label htmlFor="message" className="text-xs text-foreground sm:text-sm">
+                    Message
+                  </Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell us about your project..."
+                    required
+                    rows={4}
+                    className="min-h-[96px] border-primary/15 bg-background/60 text-sm placeholder:text-muted-foreground/80 focus-visible:ring-primary sm:min-h-[100px]"
+                  />
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                <Button
+                  type="submit"
+                  size="sm"
+                  className="h-9 w-full gap-1.5 rounded-xl bg-primary px-4 text-sm font-semibold shadow-[0_0_20px_-6px_rgba(0,180,255,0.2)] transition-all hover:bg-primary/90 sm:w-auto sm:rounded-full sm:px-6"
+                >
+                  Send Message
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Button>
+              </form>
+            </div>
+          </div>
+        </AnimateInView>
       </div>
     </section>
   )

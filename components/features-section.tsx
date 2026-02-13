@@ -1,8 +1,9 @@
-"use client"
-
 import { ExternalLink, Code, Rocket, Sparkles } from "lucide-react"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { AnimateInView } from "./animate-in-view"
+
+const cuteIn =
+  "opacity-0 translate-y-4 transition-[opacity,transform] duration-500 ease-out group-[.in-view]:opacity-100 group-[.in-view]:translate-y-0"
 
 const projects = [
   {
@@ -41,35 +42,27 @@ export function FeaturesSection() {
   return (
     <section className="relative bg-background py-16 sm:py-24" id="projects">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 text-center sm:mb-12"
-        >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Our Work
-          </p>
-          <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
-            Featured <span className="text-primary">Projects</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
-            Explore our portfolio of innovative solutions built with cutting-edge technology
-          </p>
-        </motion.div>
+        <AnimateInView>
+          <div className={`mb-10 text-center sm:mb-12 ${cuteIn}`} style={{ transitionDelay: "0ms" }}>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
+              Our Work
+            </p>
+            <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
+              Featured <span className="text-primary">Projects</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
+              Explore our portfolio of innovative solutions built with cutting-edge technology
+            </p>
+          </div>
 
-        <div className="grid w-full gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <motion.a
-              key={project.id}
-              href={project.link}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-primary/20 bg-primary/[0.03] shadow-[0_0_40px_-12px_rgba(0,180,255,0.1)] backdrop-blur-xl transition-all active:scale-[0.98] hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(0,180,255,0.15)] md:rounded-3xl"
-            >
+          <div className="grid w-full gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, index) => (
+              <a
+                key={project.id}
+                href={project.link}
+                className={`group/card relative flex flex-col overflow-hidden rounded-2xl border border-primary/20 bg-primary/[0.03] shadow-[0_0_40px_-12px_rgba(0,180,255,0.1)] backdrop-blur-xl transition-all active:scale-[0.98] hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(0,180,255,0.15)] md:rounded-3xl ${cuteIn}`}
+                style={{ transitionDelay: `${80 + index * 80}ms` }}
+              >
               {/* Project Image */}
               <div className="relative h-40 w-full overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 sm:h-48">
                 <Image
@@ -77,7 +70,7 @@ export function FeaturesSection() {
                   alt={project.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-transform duration-300 group-hover/card:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
               </div>
@@ -131,14 +124,15 @@ export function FeaturesSection() {
                 </div>
 
                 {/* Link */}
-                <div className="flex items-center gap-2 text-sm font-medium text-primary transition-colors group-hover:text-primary/80">
+                <div className="flex items-center gap-2 text-sm font-medium text-primary transition-colors group-hover/card:text-primary/80">
                   <span>View Project</span>
-                  <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ExternalLink className="h-4 w-4 transition-transform group-hover/card:translate-x-1" />
                 </div>
               </div>
-            </motion.a>
+            </a>
           ))}
-        </div>
+          </div>
+        </AnimateInView>
       </div>
     </section>
   )

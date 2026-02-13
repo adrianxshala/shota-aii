@@ -124,7 +124,7 @@ export function HeroSection() {
             >
               <a
                 ref={ctaRef}
-                href="#platform"
+                href="/projects"
                 className="group relative inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_30px_-6px_rgba(0,180,255,0.3)] transition-[box-shadow,transform] duration-200 hover:shadow-lg hover:shadow-primary/30 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:rounded-full sm:px-7 sm:py-3.5"
                 style={{
                   backgroundImage: "linear-gradient(120deg, hsl(199 89% 48%), hsl(187 85% 55%), hsl(199 89% 48%))",
@@ -135,7 +135,7 @@ export function HeroSection() {
                 <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               </a>
               <a
-                href="#about"
+                href="/about"
                 className="inline-flex items-center justify-center rounded-2xl border border-primary/20 px-5 py-3.5 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(0,180,255,0.15)] active:scale-[0.98] sm:rounded-full sm:px-7 sm:py-3.5"
               >
                 Learn More
