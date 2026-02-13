@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Mail, Phone, MapPin } from "lucide-react"
 
 const solutionsLinks = [
@@ -51,12 +52,26 @@ export function Footer() {
             <div className="flex flex-wrap items-start justify-between gap-6 sm:gap-8">
               {/* Brand */}
               <div className="min-w-0 flex-shrink-0 text-center sm:text-left">
-                <div className="flex items-center justify-center gap-2 sm:justify-start">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                    <span className="text-sm font-bold text-primary-foreground">S</span>
-                  </div>
-                  <span className="font-display text-lg font-bold text-foreground">Shota AI</span>
-                </div>
+                <a href="/" className="flex items-center justify-center gap-2 sm:justify-start">
+                  <Image
+                    src="/logo.png"
+                    alt="Shota AI"
+                    width={120}
+                    height={32}
+                    className="h-7 w-auto object-contain sm:h-8"
+                  />
+                  <span className="font-display text-lg font-bold text-foreground">Shota</span>
+                  <span
+                    className="font-display inline-block font-light bg-clip-text text-transparent"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(120deg, hsl(199 89% 48%), hsl(187 85% 55%), hsl(199 89% 48%))",
+                      backgroundSize: "200% auto",
+                    }}
+                  >
+                    {" "}Ai
+                  </span>
+                </a>
                 <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-muted-foreground sm:mx-0 sm:mt-3 sm:text-sm">
                   Empowering businesses through intelligent solutions.
                 </p>

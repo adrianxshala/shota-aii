@@ -1,9 +1,8 @@
+"use client"
+
 import { ExternalLink, Code, Rocket, Sparkles } from "lucide-react"
 import Image from "next/image"
-import { AnimateInView } from "./animate-in-view"
-
-const cuteIn =
-  "opacity-0 translate-y-4 transition-[opacity,transform] duration-500 ease-out group-[.in-view]:opacity-100 group-[.in-view]:translate-y-0"
+import { motion } from "framer-motion"
 
 const projects = [
   {
@@ -15,124 +14,177 @@ const projects = [
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     link: "#",
     icon: Sparkles,
+    featured: true,
   },
   {
     id: 2,
     name: "Web & Dashboard",
     description:
-      "A comprehensive analytics dashboard with real-time data visualization and advanced reporting capabilities for enterprise clients.",
+      "A comprehensive analytics dashboard with real-time data visualization and advanced reporting.",
     tech: ["React", "Node.js", "PostgreSQL"],
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     link: "#",
     icon: Code,
+    featured: false,
   },
   {
     id: 3,
     name: "Automation & Workflows",
     description:
-      "Streamlined automation solutions that reduce manual tasks and scale your operations with smart workflows and integrations.",
+      "Streamlined automation solutions that reduce manual tasks and scale your operations.",
     tech: ["Next.js", "APIs", "MongoDB"],
     image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
     link: "#",
     icon: Rocket,
+    featured: false,
   },
 ]
 
-export function FeaturesSection() {
+const fadeUp = { initial: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
+const viewport = { once: true, margin: "0px 0px -40px 0px", amount: 0.1 }
+
+function ProjectCard({
+  project,
+  index,
+  variant,
+}: {
+  project: (typeof projects)[0]
+  index: number
+  variant: "featured" | "compact"
+}) {
+  const isFeatured = variant === "featured"
+
   return (
-    <section className="relative bg-background py-16 sm:py-24" id="projects">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <AnimateInView>
-          <div className={`mb-10 text-center sm:mb-12 ${cuteIn}`} style={{ transitionDelay: "0ms" }}>
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-              Our Work
-            </p>
-            <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">
-              Featured <span className="text-primary">Projects</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
-              Explore our portfolio of innovative solutions built with cutting-edge technology
-            </p>
+    <motion.a
+      href={project.link}
+      initial={fadeUp.initial}
+      whileInView={fadeUp.visible}
+      viewport={viewport}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.33, 1, 0.68, 1] }}
+      className={`group/card relative flex overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/[0.06] to-primary/[0.02] shadow-[0_0_40px_-12px_rgba(0,180,255,0.08)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_50px_-10px_rgba(0,180,255,0.12)] hover:-translate-y-1 active:scale-[0.99] ${
+        isFeatured
+          ? "flex-col md:flex-row md:rounded-3xl"
+          : "flex-col md:rounded-2xl"
+      }`}
+    >
+      {/* Image area */}
+      <div
+        className={`relative shrink-0 overflow-hidden bg-gradient-to-br from-primary/15 to-primary/5 ${
+          isFeatured ? "h-52 w-full md:h-auto md:w-[45%]" : "h-36 w-full sm:h-40"
+        }`}
+      >
+        <Image
+          src={project.image}
+          alt={project.name}
+          fill
+          sizes={isFeatured ? "(max-width: 768px) 100vw, 45vw" : "(max-width: 768px) 100vw, 50vw"}
+          className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent md:from-transparent md:via-transparent md:to-transparent md:bg-gradient-to-l md:from-background/70" />
+        {isFeatured && (
+          <span className="absolute left-4 top-4 rounded-full border border-primary/30 bg-primary/20 px-3 py-1 text-xs font-semibold text-primary backdrop-blur-sm">
+            Featured
+          </span>
+        )}
+      </div>
+
+      {/* Content */}
+      <div
+        className={`relative flex flex-1 flex-col p-5 sm:p-6 ${
+          isFeatured ? "md:justify-center md:py-8 md:pl-8 md:pr-10" : "p-5"
+        }`}
+      >
+        {!isFeatured && (
+          <div className="absolute right-4 top-4 opacity-40">
+            <project.icon className="h-8 w-8 text-primary" />
           </div>
-
-          <div className="grid w-full gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, index) => (
-              <a
-                key={project.id}
-                href={project.link}
-                className={`group/card relative flex flex-col overflow-hidden rounded-2xl border border-primary/20 bg-primary/[0.03] shadow-[0_0_40px_-12px_rgba(0,180,255,0.1)] backdrop-blur-xl transition-all active:scale-[0.98] hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(0,180,255,0.15)] md:rounded-3xl ${cuteIn}`}
-                style={{ transitionDelay: `${80 + index * 80}ms` }}
-              >
-              {/* Project Image */}
-              <div className="relative h-40 w-full overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5 sm:h-48">
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-300 group-hover/card:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div className="relative flex flex-1 flex-col p-4 pt-5 sm:p-5 sm:pt-6 md:p-8 md:pt-8">
-                {/* Diamond accent */}
-                <svg
-                  className="absolute right-4 top-4 h-10 w-10 text-primary/30 sm:right-5 sm:top-5 sm:h-12 sm:w-12 md:right-8 md:top-8"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                >
-                  <path
-                    d="M 8 24 L 24 8 L 40 24 L 24 40 Z"
-                    strokeDasharray="1 1"
-                    strokeDashoffset="0"
-                    opacity="0.9"
-                  />
-                </svg>
-
-                {/* Icon */}
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 sm:mb-4 sm:h-12 sm:w-12">
-                  <project.icon className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
-                </div>
-
-                {/* Project Name */}
-                <h3 className="mb-1.5 font-display text-base font-bold text-foreground sm:mb-2 sm:text-lg">
-                  {project.name}
-                </h3>
-
-                {/* Description */}
-                <p className="mb-3 flex-1 text-sm leading-relaxed text-muted-foreground sm:mb-4">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="mb-3 flex flex-wrap gap-1.5 sm:mb-4 sm:gap-2">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-primary sm:px-3 sm:py-1 sm:text-xs"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Link */}
-                <div className="flex items-center gap-2 text-sm font-medium text-primary transition-colors group-hover/card:text-primary/80">
-                  <span>View Project</span>
-                  <ExternalLink className="h-4 w-4 transition-transform group-hover/card:translate-x-1" />
-                </div>
-              </div>
-            </a>
+        )}
+        <h3
+          className={`font-display font-bold text-foreground ${
+            isFeatured ? "text-xl sm:text-2xl md:text-3xl" : "text-base sm:text-lg"
+          }`}
+        >
+          {project.name}
+        </h3>
+        <p
+          className={`mt-2 leading-relaxed text-muted-foreground ${
+            isFeatured ? "text-sm sm:text-base max-w-xl" : "text-sm line-clamp-2"
+          }`}
+        >
+          {project.description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary sm:text-xs"
+            >
+              {tech}
+            </span>
           ))}
-          </div>
-        </AnimateInView>
+        </div>
+        <div className="mt-4 flex items-center gap-2 text-sm font-medium text-primary transition-colors group-hover/card:text-primary/90">
+          <span>View Project</span>
+          <ExternalLink className="h-4 w-4 transition-transform group-hover/card:translate-x-1" />
+        </div>
+      </div>
+    </motion.a>
+  )
+}
+
+export function FeaturesSection() {
+  const [featured, ...rest] = projects
+
+  return (
+    <section className="relative overflow-hidden bg-background py-16 sm:py-24" id="projects">
+      {/* Subtle background gradient */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(0,180,255,0.06),transparent)]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <motion.div
+          initial={fadeUp.initial}
+          whileInView={fadeUp.visible}
+          viewport={viewport}
+          transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+          className="mb-12 text-center sm:mb-14"
+        >
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
+            Our Work
+          </p>
+          <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            Featured{" "}
+            <span
+              className="inline-block bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, hsl(199 89% 48%), hsl(187 85% 55%), hsl(199 89% 48%))",
+                backgroundSize: "200% auto",
+              }}
+            >
+              Projects
+            </span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
+            From AI platforms to dashboards and automation — see what we build.
+          </p>
+        </motion.div>
+
+        {/* Featured project - large horizontal card */}
+        <div className="mb-6 sm:mb-8">
+          <ProjectCard project={featured} index={0} variant="featured" />
+        </div>
+
+        {/* Two smaller cards */}
+        <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
+          {rest.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index + 1}
+              variant="compact"
+            />
+          ))}
+        </div>
       </div>
     </section>
   )
