@@ -40,7 +40,8 @@ const projects = [
   },
 ]
 
-const fadeUp = { initial: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }
+// Subtle, professional fade-up used for section heading and cards
+const fadeUp = { initial: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }
 const viewport = { once: true, margin: "0px 0px -40px 0px", amount: 0.1 }
 
 function ProjectCard({
@@ -60,8 +61,8 @@ function ProjectCard({
       initial={fadeUp.initial}
       whileInView={fadeUp.visible}
       viewport={viewport}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.33, 1, 0.68, 1] }}
-      className={`group/card relative flex overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/[0.06] to-primary/[0.02] shadow-[0_0_40px_-12px_rgba(0,180,255,0.08)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_50px_-10px_rgba(0,180,255,0.12)] hover:-translate-y-1 active:scale-[0.99] ${
+      transition={{ duration: 0.45, delay: index * 0.06, ease: [0.33, 1, 0.68, 1] }}
+      className={`group/card relative flex overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/[0.06] to-primary/[0.02] shadow-[0_0_30px_-14px_rgba(0,180,255,0.08)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_40px_-12px_rgba(0,180,255,0.12)] ${
         isFeatured
           ? "flex-col md:flex-row md:rounded-3xl"
           : "flex-col md:rounded-2xl"
@@ -136,16 +137,13 @@ export function FeaturesSection() {
   const [featured, ...rest] = projects
 
   return (
-    <section className="relative overflow-hidden bg-background py-16 sm:py-24" id="projects">
-      {/* Subtle background gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(0,180,255,0.06),transparent)]" />
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="relative bg-background py-16 sm:py-24" id="projects">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
           initial={fadeUp.initial}
           whileInView={fadeUp.visible}
           viewport={viewport}
-          transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+          transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
           className="mb-12 text-center sm:mb-14"
         >
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">

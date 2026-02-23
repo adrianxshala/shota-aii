@@ -47,6 +47,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        // Some browser extensions inject attributes (e.g. fdprocessedid) before hydration.
+        // Suppress hydration warnings for attribute mismatches on form controls.
+        suppressHydrationWarning
         {...props}
       />
     )
